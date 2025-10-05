@@ -3,34 +3,19 @@ package metrics;
 public class PerformanceTracker {
     private long comparisons = 0;
     private long swaps = 0;
-    private long startTime;
-    private long endTime;
+    private long arrayAccesses = 0;
+    private long startNs;
+    private long endNs;
 
-    public void start() {
-        startTime = System.nanoTime();
-    }
+    public void startTimer(){ startNs = System.nanoTime(); }
+    public void stopTimer(){ endNs = System.nanoTime(); }
+    public long elapsedNs(){ return endNs - startNs; }
 
-    public void stop() {
-        endTime = System.nanoTime();
-    }
+    public void incComparisons(){ comparisons++; }
+    public void incSwaps(){ swaps++; }
+    public void incArrayAccesses(long k){ arrayAccesses += k; }
 
-    public void incrementComparisons() {
-        comparisons++;
-    }
-
-    public void incrementSwaps() {
-        swaps++;
-    }
-
-    public long getComparisons() {
-        return comparisons;
-    }
-
-    public long getSwaps() {
-        return swaps;
-    }
-
-    public double getElapsedTimeMs() {
-        return (endTime - startTime) / 1_000_000.0;
-    }
+    public long getComparisons(){ return comparisons; }
+    public long getSwaps(){ return swaps; }
+    public long getArrayAccesses(){ return arrayAccesses; }
 }
